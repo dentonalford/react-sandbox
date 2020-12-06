@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Test } from './Test';
 
 export default {
@@ -6,4 +6,4 @@ export default {
   component: Test,
 };
 
-export const TestStory = () => <Test />;
+export const TestStory: React.FunctionComponent = () => <Test />;
