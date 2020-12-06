@@ -1,3 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 
-export const Test = () => <div>Hello World</div>;
+export const Test: React.FunctionComponent = () => (
+  <div css={{ fontFamily: 'Consolas' }}>
+    Hello World
+  </div>
+);
