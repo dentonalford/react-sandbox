@@ -1,0 +1,13 @@
+{
+  "noImplicitReturns": true,
+  "noImplicitThis": true,
+  "noImplicitAny": true,
+  "strictNullChecks": true,
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react"
+  },
+  "exclude": [
+    "node_modules",
+  ]
+}

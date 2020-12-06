@@ -6,5 +6,12 @@ module.exports = {
   "addons": [
     "@storybook/addon-links",
     "@storybook/addon-essentials"
-  ]
+  ],
+  babel: async config => ({
+    ...config,
+    presets: [
+      ...config.presets,
+      '@emotion/babel-preset-css-prop'
+    ]
+  })
 }
