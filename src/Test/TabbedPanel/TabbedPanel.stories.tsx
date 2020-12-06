@@ -1,4 +1,4 @@
-import React from 'react';
+import { FunctionComponent } from 'react';
 import { TabbedPanel } from './TabbedPanel';
 
 export default {
@@ -6,10 +6,10 @@ export default {
   component: TabbedPanel,
 };
 
-export const BasicTabbedPanel = () => (
+export const BasicTabbedPanel: FunctionComponent = () => (
   <TabbedPanel tabs={['one', 'two', 'three']}>
-    <div>Child One</div>  
-    <div>Child Two</div>  
-    <div>Child Three</div>  
+    <div>Child One</div>
+    <div>Child Two</div>
+    <div>Child Three</div>
   </TabbedPanel>
-)
+);
