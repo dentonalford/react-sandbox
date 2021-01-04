@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { input } from './TimelineControls.styles';
+import * as styles from './TimelineControls.styles';
 import { capitalCase } from 'change-case';
-import { Timescale, useTimelineContext } from '../useTimelineContext';
-
-export interface TimelineControlsProps {}
+import { useTimelineContext } from '../useTimelineContext/useTimelineContext';
+import { Timescale } from '../useTimelineContext/timescale';
 
 export interface InputProps {
   checked?: boolean;
@@ -22,7 +21,7 @@ const Input: React.FC<InputProps> = ({
     <React.Fragment>
       <input
         checked={checked}
-        css={input}
+        css={styles.input}
         id={id}
         name="timescale"
         onChange={() => handleChange(text)}
@@ -33,10 +32,8 @@ const Input: React.FC<InputProps> = ({
   );
 };
 
-export const TimelineControls: React.FC<TimelineControlsProps> = () => {
+export const TimelineControls: React.FC = () => {
   const { timescale, setTimescale } = useTimelineContext();
-
-  console.log({ timescale });
 
   const isChecked = (inputTimescale: Timescale): boolean =>
     timescale === inputTimescale;
@@ -50,11 +47,13 @@ export const TimelineControls: React.FC<TimelineControlsProps> = () => {
   );
 
   return (
-    <div role="group">
-      {getInput(Timescale.day)}
-      {getInput(Timescale.week)}
-      {getInput(Timescale.month)}
-      {getInput(Timescale.year)}
+    <div css={styles.container}>
+      <div role="group">
+        {getInput(Timescale.week)}
+        {getInput(Timescale.month)}
+        {getInput(Timescale.quarter)}
+        {getInput(Timescale.year)}
+      </div>
     </div>
   );
 };
