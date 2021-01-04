@@ -4,12 +4,10 @@ import { useTimelineContext } from '../useTimelineContext/useTimelineContext';
 import { Timescale } from '../useTimelineContext/timescale';
 import * as styles from './TimelineDateHeaders.styles';
 
-export const TimelineDateHeaders: React.FC = () => {
+export const TimelineDateHeaders: React.FC = ({ children }) => {
   const { eachDateOfTimescale, timescale } = useTimelineContext();
 
   const dates = eachDateOfTimescale();
-
-  console.log({ dates });
 
   const monthAbbrev = 'MMM';
   const dayAbbrev = 'EEE';
@@ -25,29 +23,32 @@ export const TimelineDateHeaders: React.FC = () => {
   const datesInInterval = dates.length;
 
   return (
-    <table css={styles.table()}>
-      <thead>
-        <tr>
-          {dates.map((date) => (
-            <th
-              css={styles.th({ datesInInterval })}
-              key={'header-' + date.toISOString()}
-            >
-              {format(date, formatForTimescale)}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          {dates.map((date) => (
-            <td
-              key={'body-' + date.toISOString()}
-              css={styles.td({ datesInInterval })}
-            />
-          ))}
-        </tr>
-      </tbody>
-    </table>
+    <React.Fragment>
+      <table css={styles.table()}>
+        <thead>
+          <tr>
+            {dates.map((date) => (
+              <th
+                css={styles.th({ datesInInterval })}
+                key={'header-' + date.toISOString()}
+              >
+                {format(date, formatForTimescale)}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {dates.map((date) => (
+              <td
+                key={'body-' + date.toISOString()}
+                css={styles.td({ datesInInterval })}
+              />
+            ))}
+          </tr>
+        </tbody>
+      </table>
+      {children}
+    </React.Fragment>
   );
 };

@@ -10,5 +10,5 @@ export const styles: SerializedStyles = css({
   height: rowHeight,
   justifyContent: 'center',
   padding: '.33em',
-  width: '100%',
+  position: 'relative',
 });
