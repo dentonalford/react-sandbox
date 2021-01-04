@@ -18,6 +18,9 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react', '@emotion', '@typescript-eslint'],
+  rules: {
+    'react/prop-types': 'off',
+  },
   settings: {
     react: {
       version: 'detect',
