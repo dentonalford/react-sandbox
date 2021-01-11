@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { CSSObject } from '@emotion/react';
 import { useViewContext } from '../useViewContext';
 import { champagnePink } from '../../colors';
 
@@ -20,18 +21,18 @@ export const ExpandableSidebar: React.FC<ExpandableSidebarProps> = ({
     registerWidth({ component: 'ExpandableSidebar', width: collapsedWidth });
   }, [collapsedWidth, registerWidth]);
 
-  const styles = React.useMemo(
+  const styles = React.useMemo<CSSObject>(
     () => ({
       backgroundColor: champagnePink,
       boxSizing: 'border-box',
-      height: '100%',
+      float: 'left',
       width: expanded ? expandedWidth : collapsedWidth,
       zIndex: 100,
-      position: 'relative',
+      position: 'absolute',
       top: 0,
       left: 0,
+      right: 0,
       bottom: 0,
-      flex: `0 0 ${expanded ? expandedWidth : collapsedWidth}px`,
     }),
     [collapsedWidth, expanded, expandedWidth]
   );

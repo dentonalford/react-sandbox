@@ -14,10 +14,7 @@ export const ViewTemplate: React.FC = () => {
 
   return (
     <View width={600} height={400}>
-      <ExpandableSidebar
-        collapsedWidth={50}
-        expandedWidth={150}
-      ></ExpandableSidebar>
+      <ExpandableSidebar collapsedWidth={50} expandedWidth={150} />
       <ScrollableContainer>{dummyText}</ScrollableContainer>
     </View>
   );

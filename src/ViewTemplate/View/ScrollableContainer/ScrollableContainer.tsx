@@ -2,20 +2,24 @@ import * as React from 'react';
 import { useViewContext } from '../useViewContext';
 import { verticalScroll } from '../../emotionUtilityClasses';
 import { antiqueBrass } from '../../colors';
-import { css } from '@emotion/react';
+import { css, CSSObject } from '@emotion/react';
 
 export const ScrollableContainer: React.FC = ({ children }) => {
   const { reservedWidth } = useViewContext();
 
-  const styles = React.useMemo(
+  const styles = React.useMemo<CSSObject>(
     () => ({
       backgroundColor: antiqueBrass,
       boxSizing: 'border-box',
+      float: 'left',
       top: 0,
       bottom: 0,
-      position: 'relative',
+      left: 0,
+      right: 0,
+      position: 'absolute',
       padding: 15,
-      flex: `0 0 calc(100% - ${reservedWidth}px)`,
+      marginLeft: reservedWidth,
+      width: `calc(100% - ${reservedWidth}px)`,
     }),
     [reservedWidth]
   );
