@@ -5,7 +5,7 @@ import { antiqueBrass } from '../../colors';
 import { css, CSSObject } from '@emotion/react';
 
 export const ScrollableContainer: React.FC = ({ children }) => {
-  const { reservedWidth } = useViewContext();
+  const { reservedWidth, toggleSidebar } = useViewContext();
 
   const styles = React.useMemo<CSSObject>(
     () => ({
@@ -24,5 +24,12 @@ export const ScrollableContainer: React.FC = ({ children }) => {
     [reservedWidth]
   );
 
-  return <section css={css([styles, verticalScroll])}>{children}</section>;
+  return (
+    <section
+      css={css([styles, verticalScroll])}
+      onClick={() => toggleSidebar()}
+    >
+      {children}
+    </section>
+  );
 };
