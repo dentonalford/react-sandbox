@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { CSSObject } from '@emotion/react';
 import { useViewContext } from '../useViewContext';
-import { ashGray } from '../../colors';
+import { cyan } from '../../colors';
 
 interface SlideoutSidebarProps {
   width: number;
@@ -15,7 +15,7 @@ export const SlideoutSidebar: React.FC<SlideoutSidebarProps> = ({
 
   const styles = React.useMemo<CSSObject>(
     () => ({
-      backgroundColor: ashGray,
+      backgroundColor: cyan,
       bottom: 0,
       boxSizing: 'border-box',
       display: sidebarExpanded ? 'block' : 'none',

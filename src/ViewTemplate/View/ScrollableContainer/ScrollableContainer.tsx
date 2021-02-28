@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useViewContext } from '../useViewContext';
 import { verticalScroll } from '../../emotionUtilityClasses';
-import { antiqueBrass } from '../../colors';
+import { pink } from '../../colors';
 import { css, CSSObject } from '@emotion/react';
 
 export const ScrollableContainer: React.FC = ({ children }) => {
@@ -9,7 +9,7 @@ export const ScrollableContainer: React.FC = ({ children }) => {
 
   const styles = React.useMemo<CSSObject>(
     () => ({
-      backgroundColor: antiqueBrass,
+      backgroundColor: pink,
       boxSizing: 'border-box',
       float: 'left',
       top: 0,

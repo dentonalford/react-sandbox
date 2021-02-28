@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { CSSObject } from '@emotion/react';
 import { ViewContextProvider } from './useViewContext';
-import { isabelline } from '../colors';
+import { green } from '../colors';
 
 interface ViewProps {
   height: number;
@@ -11,7 +11,7 @@ interface ViewProps {
 export const View: React.FC<ViewProps> = ({ children, height, width }) => {
   const styles = React.useMemo<CSSObject>(
     () => ({
-      backgroundColor: isabelline,
+      backgroundColor: green,
       boxSizing: 'border-box',
       width,
       height,

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { CSSObject } from '@emotion/react';
 import { useViewContext } from '../useViewContext';
-import { champagnePink } from '../../colors';
+import { yellow } from '../../colors';
 
 interface ExpandableSidebarProps {
   collapsedWidth: number;
@@ -23,7 +23,7 @@ export const ExpandableSidebar: React.FC<ExpandableSidebarProps> = ({
 
   const styles = React.useMemo<CSSObject>(
     () => ({
-      backgroundColor: champagnePink,
+      backgroundColor: yellow,
       boxSizing: 'border-box',
       float: 'left',
       width: expanded ? expandedWidth : collapsedWidth,
