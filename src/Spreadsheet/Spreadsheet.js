@@ -1,43 +1,28 @@
 /* eslint-disable react/jsx-key */
-import { css } from '@emotion/react';
-import React, { useMemo, useState } from 'react';
-import { useTable, useAbsoluteLayout, useResizeColumns } from 'react-table';
-import * as styles from './Spreadsheet.styles';
-
-const useTableKeyboard = () => {
-  const { focusedCell, setFocusedCell } = useState({
-    rowIndex: 0,
-    columnIndex: 0,
-  });
-  const { cellIsActive, setCellIsActive } = useState(false);
-
-  const focusCell = (rowIndex, columnIndex) =>
-    setFocusedCell({ rowIndex, columnIndex });
-  const activateCell = () => setCellIsActive(true);
-  const deactivateCell = () => setCellIsActive(false);
-
-  return {
-    focusCell,
-    focusedCell,
-    cellIsActive,
-    activateCell,
-    deactivateCell,
-  };
-};
+import { css } from '@emotion/react'
+import React from 'react'
+import { useTable, useAbsoluteLayout } from 'react-table'
+import { useHotkeys } from 'react-hotkeys-hook'
+import { useTableState } from './useTableState'
+import * as styles from './Spreadsheet.styles'
 
 const Cell = (props) => {
-  const {
-    focusCell,
-    focusedCell,
-    cellIsActive,
-    activateCell,
-    deactivateCell,
-  } = useTableKeyboard();
-  console.log('Cell props', props);
-  console.log('Cell column', props.column);
-  console.log('Cell row', props.row);
-  return <React.Fragment>{props.value}</React.Fragment>;
-};
+  const { focusedRow, focusedColumn, cellIsActive } = useTableState()
+
+  const currentVisibleColumn = props.visibleColumns[focusedColumn] || {}
+
+  const cellIsFocused =
+    props.column.id === currentVisibleColumn.id &&
+    props.row.index === focusedRow
+
+  return (
+    <React.Fragment>
+      {props.value}
+      {cellIsFocused && !cellIsActive ? ' focused' : ''}
+      {cellIsFocused && cellIsActive ? ' active' : ''}
+    </React.Fragment>
+  )
+}
 
 export const Spreadsheet = () => {
   const defaultColumn = React.useMemo(
@@ -48,7 +33,7 @@ export const Spreadsheet = () => {
       Cell,
     }),
     []
-  );
+  )
 
   const data = React.useMemo(
     () => [
@@ -66,7 +51,7 @@ export const Spreadsheet = () => {
       },
     ],
     []
-  );
+  )
 
   const columns = React.useMemo(
     () => [
@@ -80,7 +65,7 @@ export const Spreadsheet = () => {
       },
     ],
     []
-  );
+  )
 
   const {
     getTableProps,
@@ -88,14 +73,28 @@ export const Spreadsheet = () => {
     headerGroups,
     rows,
     prepareRow,
-  } = useTable(
-    { columns, data, defaultColumn },
-    useAbsoluteLayout
-    // useResizeColumns
-  );
+  } = useTable({ columns, data, defaultColumn }, useAbsoluteLayout)
 
-  console.log('getTableProps', getTableProps());
-  console.log('getTableBodyProps', getTableBodyProps());
+  const {
+    activateCell,
+    cellIsActive,
+    deactivateCell,
+    focusNextColumn,
+    focusNextRow,
+    focusPrevColumn,
+    focusPrevRow,
+  } = useTableState()
+
+  useHotkeys('left', () => focusPrevColumn(), [focusPrevColumn])
+  useHotkeys('right', () => focusNextColumn(), [focusNextColumn])
+  useHotkeys('up', () => focusPrevRow(), [focusPrevRow])
+  useHotkeys('down', () => focusNextRow(), [focusNextRow])
+
+  useHotkeys(
+    'enter',
+    () => (cellIsActive ? deactivateCell() : activateCell()),
+    [cellIsActive, deactivateCell, activateCell]
+  )
 
   return (
     // apply the table props
@@ -128,7 +127,7 @@ export const Spreadsheet = () => {
           // Loop over the table rows
           rows.map((row) => {
             // Prepare the row for display
-            prepareRow(row);
+            prepareRow(row)
             return (
               // Apply the row props
               <div css={css(styles.tr())} {...row.getRowProps()}>
@@ -143,14 +142,14 @@ export const Spreadsheet = () => {
                           cell.render('Cell')
                         }
                       </div>
-                    );
+                    )
                   })
                 }
               </div>
-            );
+            )
           })
         }
       </div>
     </div>
-  );
-};
+  )
+}
