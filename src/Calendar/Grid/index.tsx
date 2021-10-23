@@ -3,8 +3,12 @@ import * as React from 'react';
 import { addDays, eachDayOfInterval, startOfDay } from 'date-fns';
 import { useGridContext } from './GridContext';
 
-export const Grid = (): JSX.Element => {
-  const { groups, numberOfDays, targetDate } = useGridContext();
+type GridProps = {
+  ColumnComponent: React.FC<{ category: string; date: Date }>;
+};
+
+export const Grid = ({ ColumnComponent }: GridProps): JSX.Element => {
+  const { categories, numberOfDays, targetDate } = useGridContext();
   const days = eachDayOfInterval({
     start: startOfDay(targetDate),
     end: startOfDay(addDays(targetDate, numberOfDays - 1)),
@@ -13,18 +17,20 @@ export const Grid = (): JSX.Element => {
   return (
     <GridContainer
       numberOfColumns={numberOfDays}
-      numberOfGroups={groups.length}
+      numberOfGroups={categories.length}
     >
-      {groups.map((group) => (
-        <React.Fragment key={group}>
-          <GroupRowContainer>{group}</GroupRowContainer>
+      {categories.map((category) => (
+        <React.Fragment key={category}>
+          <CategoryRow>{category}</CategoryRow>
           <ContentRowContainer>
             {days.map((day) => (
               <DayColumnContainer
                 key={day.toISOString()}
                 numberOfColumns={numberOfDays}
               >
-                <DayColumn key={day.toISOString()}>{day.toString()}</DayColumn>
+                <DayColumn key={day.toISOString()}>
+                  <ColumnComponent category={category} date={day} />
+                </DayColumn>
               </DayColumnContainer>
             ))}
           </ContentRowContainer>
@@ -50,8 +56,8 @@ const GridContainer: React.FC<GridContainerProps> = ({ children }) => (
   </div>
 );
 
-type GroupRowContainerProps = {};
-const GroupRowContainer: React.FC<GroupRowContainerProps> = ({ children }) => (
+type CategoryRowProps = {};
+const CategoryRow: React.FC<CategoryRowProps> = ({ children }) => (
   <div
     css={{
       border: '1px solid blue',

@@ -1,12 +1,13 @@
 import mocker from 'mocker-data-generator';
-import { inspect } from 'util';
 import faker from 'faker';
-import { endOfWeek, startOfWeek } from 'date-fns';
+import { endOfMonth, startOfMonth } from 'date-fns';
 
-const startOfThisWeek = startOfWeek(new Date()).toISOString();
-const endOfThisWeek = endOfWeek(new Date()).toISOString();
+const startOfThisMonth = startOfMonth(new Date()).toISOString();
+const endOfThisMonth = endOfMonth(new Date()).toISOString();
 
 console.log('faker', faker);
+
+const categories = ['Category A', 'Category B', 'Category C', 'Category D'];
 
 const moment = {
   id: {
@@ -15,10 +16,10 @@ const moment = {
   title: {
     faker: 'lorem.words(3)',
   },
-  scheduled_at: {
+  scheduledAt: {
     function: function () {
       return this.faker.date
-        .between(startOfThisWeek, endOfThisWeek)
+        .between(startOfThisMonth, endOfThisMonth)
         .toISOString();
     },
   },
@@ -34,6 +35,14 @@ const moment = {
       );
     },
   },
+  categories: {
+    function: function () {
+      return this.faker.random.arrayElements(
+        categories,
+        this.faker.datatype.number({ min: 0, max: categories.length })
+      );
+    },
+  },
 };
 
 export const makeMoments = (count: number): Promise<any> => {
@@ -43,7 +52,6 @@ export const makeMoments = (count: number): Promise<any> => {
       if (error) {
         throw error;
       }
-      console.log(inspect(data, { depth: 10 }));
       return data;
     });
 };

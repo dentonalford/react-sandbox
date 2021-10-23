@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 type GridContextValue = {
-  groups: string[];
+  categories: string[];
   numberOfDays: number;
   targetDate: Date;
 };
@@ -11,14 +11,14 @@ export const GridContext = React.createContext<GridContextValue | undefined>(
 
 export const GridContextProvider: React.FC<GridContextValue> = ({
   children,
-  groups,
+  categories,
   numberOfDays,
   targetDate,
 }) => {
   return (
     <GridContext.Provider
       value={{
-        groups,
+        categories,
         numberOfDays,
         targetDate,
       }}

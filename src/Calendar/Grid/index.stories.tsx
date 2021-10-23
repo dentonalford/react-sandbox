@@ -10,10 +10,16 @@ export default {
 
 export const Default: Story = () => (
   <GridContextProvider
-    groups={['fe', 'fi', 'fo', 'fum']}
+    categories={['fe', 'fi', 'fo', 'fum']}
     numberOfDays={3}
     targetDate={new Date()}
   >
-    <Grid />
+    <Grid
+      ColumnComponent={({ category, date }) => (
+        <div>
+          Card for {category} on {date.toString()}
+        </div>
+      )}
+    />
   </GridContextProvider>
 );

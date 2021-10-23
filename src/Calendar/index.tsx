@@ -1,33 +1,54 @@
 import * as React from 'react';
+import { Grid } from './Grid';
+import { GridContextProvider } from './Grid/GridContext';
+import {
+  MomentContextProvider,
+  useMomentContext,
+  getMomentsByCategoryAndDate,
+} from './MomentContext';
 
-import { makeMoments } from '../data/makeMoments';
-
-const fetchMoments = async (set: React.Dispatch<any>): Promise<void> => {
-  const data = await makeMoments(10);
-  console.log('setting data?', data);
-  if (data) set(data);
-};
+// todo dedup from makeMoments
+const categories = ['Category A', 'Category B', 'Category C', 'Category D'];
 
 export const Calendar = (): JSX.Element => {
-  const [data, setData] = React.useState(null);
-
-  React.useEffect(() => {
-    fetchMoments(setData);
-  }, []);
-
   return (
-    <div>
-      {data
-        ? data.moment.map((moment) => <Card key={moment.uuid} {...moment} />)
-        : null}
-    </div>
+    <MomentContextProvider>
+      <GridContextProvider
+        categories={categories}
+        targetDate={new Date()}
+        numberOfDays={7}
+      >
+        <Grid ColumnComponent={CardColumn} />
+      </GridContextProvider>
+    </MomentContextProvider>
   );
+};
+
+type CardColumnProps = {
+  category: string;
+  date: Date;
+};
+
+const CardColumn: React.FC<CardColumnProps> = ({ category, date }) => {
+  const { byCategory, moments } = useMomentContext();
+
+  if (moments === undefined) return null;
+
+  const momentsForColumn = getMomentsByCategoryAndDate(
+    moments,
+    byCategory,
+    category,
+    date
+  ).sort((a, b) => a.position - b.position);
+
+  return momentsForColumn.map((moment) => <Card key={moment.id} {...moment} />);
 };
 
 const Card = ({ id, title, scheduledAt, image }): JSX.Element => (
   <CardContainer>
     <ImageContainer>
       <img
+        loading="lazy"
         css={{
           objectFit: 'contain',
           maxWidth: '100%',
@@ -45,11 +66,12 @@ const Card = ({ id, title, scheduledAt, image }): JSX.Element => (
 const CardContainer: React.FC = ({ children }) => (
   <div
     css={{
-      width: 'calc(100% / 7)',
+      width: '100%',
       borderRadius: 8,
       border: '1px solid black',
       fontFamily: 'segoe ui',
       fontSize: 10,
+      marginBottom: 12,
     }}
   >
     {children}
