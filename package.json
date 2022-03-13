@@ -8,24 +8,27 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.1.2",
-    "@storybook/react": "^6.1.10",
+    "@storybook/react": "^6.4.19",
+    "@xstate/react": "^2.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "typescript": "^4.1.2"
+    "typescript": "^4.1.2",
+    "xstate": "^4.30.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@emotion/babel-preset-css-prop": "^11.0.0",
     "@emotion/eslint-plugin": "^11.0.0",
-    "@storybook/addon-actions": "^6.1.10",
-    "@storybook/addon-essentials": "^6.1.10",
-    "@storybook/addon-links": "^6.1.10",
+    "@storybook/addon-actions": "^6.4.19",
+    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-links": "^6.4.19",
     "@typescript-eslint/eslint-plugin": "^4.9.0",
     "@typescript-eslint/parser": "^4.9.0",
     "babel-loader": "^8.2.2",
     "eslint": "^7.15.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-storybook": "^0.5.7",
     "prettier": "^2.2.1"
   },
   "scripts": {
@@ -37,7 +40,7 @@
     "prettier:base": "yarn prettier --config .prettierrc.js .",
     "prettier:check": "yarn prettier:base --check",
     "prettier:fix": "yarn prettier:base --write",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
     "build-storybook": "build-storybook"
   }
 }
