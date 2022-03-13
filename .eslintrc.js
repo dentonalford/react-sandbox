@@ -4,6 +4,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier',
+    'plugin:storybook/recommended',
   ],
   env: {
     browser: true,
@@ -26,4 +27,4 @@ module.exports = {
   rules: {
     'react/prop-types': 'off',
   },
-};
+}
