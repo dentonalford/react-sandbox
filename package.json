@@ -8,6 +8,7 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.1.2",
+    "@primer/octicons-react": "^17.2.0",
     "@storybook/react": "^6.4.19",
     "@xstate/react": "^2.0.1",
     "react": "^17.0.1",
@@ -22,6 +23,7 @@
     "@storybook/addon-actions": "^6.4.19",
     "@storybook/addon-essentials": "^6.4.19",
     "@storybook/addon-links": "^6.4.19",
+    "@types/react": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.9.0",
     "@typescript-eslint/parser": "^4.9.0",
     "babel-loader": "^8.2.2",
@@ -40,7 +42,7 @@
     "prettier:base": "yarn prettier --config .prettierrc.js .",
     "prettier:check": "yarn prettier:base --check",
     "prettier:fix": "yarn prettier:base --write",
-    "storybook": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   }
 }
