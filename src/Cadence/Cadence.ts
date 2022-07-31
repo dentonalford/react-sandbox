@@ -1,11 +1,15 @@
 import {
   eachDayOfInterval,
-  startOfDay,
   endOfDay,
-  startOfWeek,
-  endOfWeek,
-  startOfMonth,
   endOfMonth,
+  endOfQuarter,
+  endOfWeek,
+  endOfYear,
+  startOfDay,
+  startOfMonth,
+  startOfQuarter,
+  startOfWeek,
+  startOfYear,
 } from 'date-fns'
 
 import { WeekStartsOn, Interval, Periods } from './types'
@@ -43,8 +47,12 @@ const getIntervalMethods = (
       ]
     case Periods.month:
       return [startOfMonth, endOfMonth]
+    case Periods.quarter:
+      return [startOfQuarter, endOfQuarter]
+    case Periods.year:
+      return [startOfYear, endOfYear]
     default:
-      throw new Error('Unsupported period value!')
+      throw new Error('Unsupported Period')
   }
 }
 

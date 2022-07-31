@@ -7,4 +7,6 @@ export enum Periods {
   day = 'day',
   week = 'week',
   month = 'month',
+  quarter = 'quarter',
+  year = 'year',
 }
