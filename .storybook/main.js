@@ -4,5 +4,6 @@ module.exports = {
   babel: async (config) => ({
     ...config,
     presets: [...config.presets, '@emotion/babel-preset-css-prop'],
+    plugins: [['@babel/plugin-proposal-class-properties']],
   }),
-};
+}
